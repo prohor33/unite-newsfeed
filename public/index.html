@@ -21,30 +21,25 @@
         version    : 'v2.2'
       });
 
-      FB.getLoginStatus(function(response) {
-        if (response.status === 'connected') {
-          console.log('Logged in.');
-        }
-        else {
-          
+      if (!Parse.User.current()) {
 
-          if (!Parse.FacebookUtils.isLogged(Parse.User)) {
-            Parse.FacebookUtils.logIn("read_stream", {
-              success: function(user) {
-                if (!user.existed()) {
-                  alert("User signed up and logged in through Facebook!");
-                } else {
-                  alert("User logged in through Facebook!");
-                }
-              },
-              error: function(user, error) {
-                alert("User cancelled the Facebook login or did not fully authorize.");
-              }
-            });
+        alert("you are not logged");
+        
+        Parse.FacebookUtils.logIn("read_stream", {
+          success: function(user) {
+            if (!user.existed()) {
+              alert("User signed up and logged in through Facebook!");
+            } else {
+              alert("User logged in through Facebook!");
+            }
+          },
+          error: function(user, error) {
+            alert("User cancelled the Facebook login or did not fully authorize.");
           }
-          
-        }
-      });
+        });
+      } else {
+        // alert("you are logged");
+      }
 
       /* make the API call */
       FB.api(
@@ -54,6 +49,14 @@
               /* handle the result */
               // alert(response);
               console.log(JSON.stringify(response));
+
+              // var jsonData = JSON.parse(response);
+              // for (var i = 0; i < jsonData.counters.length; i++) {
+              //     var counter = jsonData.counters[i];
+              //     console.log(counter.picture);
+              // }
+            } else {
+              alert("can't acces news feed");
             }
           }
       );
@@ -102,6 +105,16 @@
       data-width="450"
       data-show-faces="true">
     </div>
+
+    <br>
+    <script type="text/javascript">
+    function logout() 
+    {
+        Parse.User.logOut();
+        alert("You are log-outed");
+    }
+    </script>
+    <input type="button" value="Log out" onclick="logout()"><br/><br/>
   </div>
 
 
