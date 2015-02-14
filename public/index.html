@@ -27,26 +27,6 @@
         version    : 'v2.2' // point to the latest Facebook Graph API version
       });
 
-
-      // FB.api(
-      //     "/me/home",
-      //     function (response) {
-      //       if (response && !response.error) {
-      //         /* handle the result */
-      //         // alert(response);
-      //         console.log(JSON.stringify(response));
-      //         // var jsonData = JSON.parse(response);
-      //         // for (var i = 0; i < jsonData.counters.length; i++) {
-      //         //     var counter = jsonData.counters[i];
-      //         //     console.log(counter.picture);
-      //         // }
-      //       } else {
-      //         alert("can't acces news feed");
-      //       }
-      //     }
-      // );
-
-
       if (Parse.User.current()) {
         // already loged
         window.location.href = "newsfeed.html";
@@ -63,31 +43,10 @@
   </script>
 
   <div id="main">
-    <h1>You're ready to use Parse!</h1>
+    <h1>Unite Newsfeed (VK + Facebook)</h1>
 
-    <p>Read the documentation and start building your JavaScript app:</p>
+    <p>Please, login</p>
 
-    <ul>
-      <li><a href="https://www.parse.com/docs/js_guide">Parse JavaScript Guide</a></li>
-      <li><a href="https://www.parse.com/docs/js">Parse JavaScript API Documentation</a></li>
-    </ul>
-
-    <div style="display:none" class="error">
-      Looks like there was a problem saving the test object. Make sure you've set your application ID and javascript key correctly in the call to <code>Parse.initialize</code> in this file.
-    </div>
-
-    <br>
-    <!-- Facebook "Like" button -->
-    <div id="fb-root"></div>
-    <div
-      class="fb-like"
-      data-share="true"
-      data-width="450"
-      data-show-faces="true">
-    </div>
-
-    <br>
-    <br>
     <br>
     <script type="text/javascript">
     function fb_login() 
@@ -110,14 +69,16 @@
 
     <br>
     <br>
-    <script type="text/javascript">
-    function fb_logout() 
-    {
-        Parse.User.logOut();
-        alert("You are log-outed");
-    }
-    </script>
-    <input type="button" value="Log out" onclick="fb_logout()"><br/><br/>
+    <br>
+    <!-- Facebook "Like" button -->
+    <div id="fb-root"></div>
+    <div
+      class="fb-like"
+      data-share="true"
+      data-width="450"
+      data-show-faces="true">
+    </div>
+
   </div>
 
 
