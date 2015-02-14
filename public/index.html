@@ -2,8 +2,8 @@
 <head>
   <meta charset="utf-8">
 
-  <title>My Parse App</title>
-  <meta name="description" content="My Parse App">
+  <title>Unite Newsfeed</title>
+  <meta name="description" content="Unite Newsfeed">
   <meta name="viewport" content="width=device-width">
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/styles.css">
@@ -14,65 +14,55 @@
 <body>
   <!-- Facebook API settings -->
   <script>
+    var APP_ID = "0vWzvyy97Iz8s1He5zmHEgoADKFs4sksCjXAtwUH";
+    var JAVASCRIPT_KEY = "h8y691gKrYpUzjB8scBvSDDoBqAXJfh6cqCUofam";
+    Parse.initialize(APP_ID, JAVASCRIPT_KEY);
+
     window.fbAsyncInit = function() {
-      Parse.FacebookUtils.init({
-        appId      : '588555194577546',
-        xfbml      : true,
-        version    : 'v2.2'
+      Parse.FacebookUtils.init({ // this line replaces FB.init({
+        appId      : '588555194577546', // Facebook App ID
+        status     : true,  // check Facebook Login status
+        cookie     : true,  // enable cookies to allow Parse to access the session
+        xfbml      : true,  // initialize Facebook social plugins on the page
+        version    : 'v2.2' // point to the latest Facebook Graph API version
       });
 
-      if (!Parse.User.current()) {
 
-        alert("you are not logged");
-        
-        Parse.FacebookUtils.logIn("read_stream", {
-          success: function(user) {
-            if (!user.existed()) {
-              alert("User signed up and logged in through Facebook!");
-            } else {
-              alert("User logged in through Facebook!");
-            }
-          },
-          error: function(user, error) {
-            alert("User cancelled the Facebook login or did not fully authorize.");
-          }
-        });
-      } else {
-        // alert("you are logged");
+      // FB.api(
+      //     "/me/home",
+      //     function (response) {
+      //       if (response && !response.error) {
+      //         /* handle the result */
+      //         // alert(response);
+      //         console.log(JSON.stringify(response));
+      //         // var jsonData = JSON.parse(response);
+      //         // for (var i = 0; i < jsonData.counters.length; i++) {
+      //         //     var counter = jsonData.counters[i];
+      //         //     console.log(counter.picture);
+      //         // }
+      //       } else {
+      //         alert("can't acces news feed");
+      //       }
+      //     }
+      // );
+
+
+      if (Parse.User.current()) {
+        // already loged
+        window.location.href = "newsfeed.html";
       }
-
-      /* make the API call */
-      FB.api(
-          "/me/home",
-          function (response) {
-            if (response && !response.error) {
-              /* handle the result */
-              // alert(response);
-              console.log(JSON.stringify(response));
-
-              // var jsonData = JSON.parse(response);
-              // for (var i = 0; i < jsonData.counters.length; i++) {
-              //     var counter = jsonData.counters[i];
-              //     console.log(counter.picture);
-              // }
-            } else {
-              alert("can't acces news feed");
-            }
-          }
-      );
     };
 
     (function(d, s, id){
-       var js, fjs = d.getElementsByTagName(s)[0];
-       if (d.getElementById(id)) {return;}
-       js = d.createElement(s); js.id = id;
-       js.src = "http://connect.facebook.net/en_Us/sdk.js";
-       fjs.parentNode.insertBefore(js, fjs);
-     }(document, 'script', 'facebook-jssdk'));
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) {return;}
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
   </script>
 
   <div id="main">
-    <h1>Диман давай кодить!</h1>
     <h1>You're ready to use Parse!</h1>
 
     <p>Read the documentation and start building your JavaScript app:</p>
@@ -86,16 +76,6 @@
       Looks like there was a problem saving the test object. Make sure you've set your application ID and javascript key correctly in the call to <code>Parse.initialize</code> in this file.
     </div>
 
-    <div style="display:none" class="success">
-      <p>We've also just created your first object using the following code:</p>
-      
-        <code>
-          var TestObject = Parse.Object.extend("TestObject");<br/>
-          var testObject = new TestObject();<br/>
-          testObject.save({foo: "bar"});
-        </code>
-    </div>
-
     <br>
     <!-- Facebook "Like" button -->
     <div id="fb-root"></div>
@@ -107,35 +87,42 @@
     </div>
 
     <br>
+    <br>
+    <br>
     <script type="text/javascript">
-    function logout() 
+    function fb_login() 
+    {
+        Parse.FacebookUtils.logIn("read_stream", {
+        success: function(user) {
+          if (!user.existed()) {
+            alert("User signed up and logged in through Facebook!");
+          } else {
+            alert("User logged in through Facebook!");
+          }
+        },
+        error: function(user, error) {
+          alert("User cancelled the Facebook login or did not fully authorize.");
+        }
+      });
+    }
+    </script>
+    <a href="#" onclick="fb_login();"><img src="http://www.kilnandco.com/gallery/var/albums/facebook-login-button.png?m=1375582078" border="0" alt=""></a>
+
+    <br>
+    <br>
+    <script type="text/javascript">
+    function fb_logout() 
     {
         Parse.User.logOut();
         alert("You are log-outed");
     }
     </script>
-    <input type="button" value="Log out" onclick="logout()"><br/><br/>
+    <input type="button" value="Log out" onclick="fb_logout()"><br/><br/>
   </div>
 
 
 
   <!-- Parse.com API script -->
-  <script type="text/javascript">
-    var APP_ID = "0vWzvyy97Iz8s1He5zmHEgoADKFs4sksCjXAtwUH";
-    var JAVASCRIPT_KEY = "h8y691gKrYpUzjB8scBvSDDoBqAXJfh6cqCUofam";
-    Parse.initialize(APP_ID, JAVASCRIPT_KEY);
-    
-    var TestObject = Parse.Object.extend("TestObject");
-    var testObject = new TestObject();
-      testObject.save({foo: "bar"}, {
-      success: function(object) {
-        $(".success").show();
-      },
-      error: function(model, error) {
-        $(".error").show();
-      }
-    });
-  </script>
 </body>
 
 </html>

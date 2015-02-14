@@ -1,0 +1,60 @@
+<!doctype html>
+<head>
+  <meta charset="utf-8">
+
+  <title>Unite Newsfeed</title>
+  <meta name="description" content="Unite Newsfeed">
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.3.4.min.js"></script>
+</head>
+
+<body>
+	<script>
+    var APP_ID = "0vWzvyy97Iz8s1He5zmHEgoADKFs4sksCjXAtwUH";
+    var JAVASCRIPT_KEY = "h8y691gKrYpUzjB8scBvSDDoBqAXJfh6cqCUofam";
+    Parse.initialize(APP_ID, JAVASCRIPT_KEY);
+	
+    window.fbAsyncInit = function() {
+      Parse.FacebookUtils.init({ // this line replaces FB.init({
+        appId      : '588555194577546', // Facebook App ID
+        status     : true,  // check Facebook Login status
+        cookie     : true,  // enable cookies to allow Parse to access the session
+        xfbml      : true,  // initialize Facebook social plugins on the page
+        version    : 'v2.2' // point to the latest Facebook Graph API version
+      });
+
+		  FB.api(
+			  "/me/home",
+			  function (response) {
+			    if (response && !response.error) {
+			      /* handle the result */
+			      // alert(response);
+			      console.log(JSON.stringify(response));
+			      // var jsonData = JSON.parse(response);
+			      // for (var i = 0; i < jsonData.counters.length; i++) {
+			      //     var counter = jsonData.counters[i];
+			      //     console.log(counter.picture);
+			      // }
+			    } else {
+			      alert("can't acces news feed");
+			    }
+			  }
+			);
+		};
+
+		(function(d, s, id){
+		 var js, fjs = d.getElementsByTagName(s)[0];
+		 if (d.getElementById(id)) {return;}
+		 js = d.createElement(s); js.id = id;
+		 js.src = "//connect.facebook.net/en_US/sdk.js";
+		 fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+	</script>
+
+<div id="main">
+	<h1>You're ready to go hacking!</h1>
+</div>
+</body>
