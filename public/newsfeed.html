@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width">
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/post.css">
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
   <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.3.4.min.js"></script>
 </head>
@@ -16,7 +17,7 @@
     var APP_ID = "0vWzvyy97Iz8s1He5zmHEgoADKFs4sksCjXAtwUH";
     var JAVASCRIPT_KEY = "h8y691gKrYpUzjB8scBvSDDoBqAXJfh6cqCUofam";
     Parse.initialize(APP_ID, JAVASCRIPT_KEY);
-	
+
     window.fbAsyncInit = function() {
       Parse.FacebookUtils.init({ // this line replaces FB.init({
         appId      : '588555194577546', // Facebook App ID
@@ -31,13 +32,28 @@
 			  function (response) {
 			    if (response && !response.error) {
 			      /* handle the result */
-			      // alert(response);
+
 			      console.log(JSON.stringify(response));
-			      // var jsonData = JSON.parse(response);
-			      // for (var i = 0; i < jsonData.counters.length; i++) {
-			      //     var counter = jsonData.counters[i];
-			      //     console.log(counter.picture);
-			      // }
+
+			      console.log("response = " + response.data);
+			      for (var i = 0; i < response.data.length; i++) {
+			      	console.log("it");
+			      	var picture = response.data[i].picture;
+						  console.log(picture);
+
+
+						  var img = document.createElement("img");
+							img.src = picture;
+							// img.class = 'post_image';
+							// img.style.width = '200px';
+
+							var d = document.createElement('div');
+							d.class = 'post';
+							d.appendChild(img);
+
+							var src = document.getElementById("newsfeed");
+							src.appendChild(d);
+						}
 			    } else {
 			      alert("can't acces news feed");
 			    }
@@ -49,10 +65,13 @@
 		 var js, fjs = d.getElementsByTagName(s)[0];
 		 if (d.getElementById(id)) {return;}
 		 js = d.createElement(s); js.id = id;
-		 js.src = "//connect.facebook.net/en_US/sdk.js";
+		 js.src = "http://connect.facebook.net/en_US/sdk.js";
 		 fjs.parentNode.insertBefore(js, fjs);
 		}(document, 'script', 'facebook-jssdk'));
 	</script>
+
+<div id="newsfeed">
+</div>
 
 <div id="main">
 	<h1>You're ready to go hacking!</h1>

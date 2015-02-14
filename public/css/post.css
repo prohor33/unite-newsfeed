@@ -1,0 +1,30 @@
+p {
+    font-size: 15pt;
+}
+
+
+
+
+
+/* Double-color dashed line */
+    
+hr.style-three {
+    border: 0;
+    border-bottom: 1px dashed #ccc;
+    background: #999;
+}
+
+
+.post {
+    margin-left: auto;
+    margin-right: auto;
+/*    margin-top: 50px;
+    margin-bottom: 50px;*/
+    width: 300px;
+    background-color: #b0e0e6;
+}
+
+/*.post_image {
+    width: 300px;
+    margin: 100px;
+}*/
