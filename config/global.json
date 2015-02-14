@@ -1,0 +1,14 @@
+{
+    "applications": {
+        "_default": {
+            "link": "unite-newsfeed"
+        }, 
+        "unite-newsfeed": {
+            "applicationId": "0vWzvyy97Iz8s1He5zmHEgoADKFs4sksCjXAtwUH", 
+            "masterKey": "Qj0kSfCuiIn2e4qpESD7HwT0Z4OPtiWAD4vwMCy0"
+        }
+    }, 
+    "global": {
+        "parseVersion": "1.3.4"
+    }
+}
