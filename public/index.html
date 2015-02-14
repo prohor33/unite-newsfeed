@@ -15,23 +15,61 @@
   <!-- Facebook API settings -->
   <script>
     window.fbAsyncInit = function() {
-      FB.init({
+      Parse.FacebookUtils.init({
         appId      : '588555194577546',
         xfbml      : true,
         version    : 'v2.2'
       });
+
+      FB.getLoginStatus(function(response) {
+        if (response.status === 'connected') {
+          console.log('Logged in.');
+        }
+        else {
+          
+
+          if (!Parse.FacebookUtils.isLogged(Parse.User)) {
+            Parse.FacebookUtils.logIn("read_stream", {
+              success: function(user) {
+                if (!user.existed()) {
+                  alert("User signed up and logged in through Facebook!");
+                } else {
+                  alert("User logged in through Facebook!");
+                }
+              },
+              error: function(user, error) {
+                alert("User cancelled the Facebook login or did not fully authorize.");
+              }
+            });
+          }
+          
+        }
+      });
+
+      /* make the API call */
+      FB.api(
+          "/me/home",
+          function (response) {
+            if (response && !response.error) {
+              /* handle the result */
+              // alert(response);
+              console.log(JSON.stringify(response));
+            }
+          }
+      );
     };
 
     (function(d, s, id){
        var js, fjs = d.getElementsByTagName(s)[0];
        if (d.getElementById(id)) {return;}
        js = d.createElement(s); js.id = id;
-       js.src = "http://connect.facebook.net/ru_Ru/sdk.js";
+       js.src = "http://connect.facebook.net/en_Us/sdk.js";
        fjs.parentNode.insertBefore(js, fjs);
      }(document, 'script', 'facebook-jssdk'));
   </script>
 
   <div id="main">
+    <h1>Диман давай кодить!</h1>
     <h1>You're ready to use Parse!</h1>
 
     <p>Read the documentation and start building your JavaScript app:</p>
@@ -53,17 +91,20 @@
           var testObject = new TestObject();<br/>
           testObject.save({foo: "bar"});
         </code>
+    </div>
 
-        <div id="fb-root"></div>
-
-        <div
-          class="fb-like"
-          data-share="true"
-          data-width="450"
-          data-show-faces="true">
-        </div>
+    <br>
+    <!-- Facebook "Like" button -->
+    <div id="fb-root"></div>
+    <div
+      class="fb-like"
+      data-share="true"
+      data-width="450"
+      data-show-faces="true">
     </div>
   </div>
+
+
 
   <!-- Parse.com API script -->
   <script type="text/javascript">
